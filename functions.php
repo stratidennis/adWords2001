@@ -26,7 +26,7 @@ function current_budget($budgetsArray, $i)
 {
     $x = explode(",", $budgetsArray);
     $budget = explode("(", $x[$i]);
-    return intval($budget[0]); // Returning the budget from the $budget array
+    return floatval($budget[0]); // Returning the budget from the $budget array
 }
 
 function create_hours_array($lines, $date, $sw = 1)
@@ -55,7 +55,7 @@ function create_budgets_array($lines, $date, $sw = 1)
             $y = explode(",", $x[1]);
             foreach ($y as $z) {
                 $u = explode("(", $z);
-                $budgets[] = $u[0];
+                $budgets[] = floatval($u[0]);
             }
         }
     }
@@ -83,7 +83,7 @@ function compare_times($hour1, $hour2)
 function create_cost($maxBudgetsSum, $totalMonthlyCost, $budget, $totalDailyCost)
 {
     $mul = mt_rand(100, 1000);
-    $maxCost = 2 * intval($budget) - $totalDailyCost;
+    $maxCost = 2 * floatval($budget) - $totalDailyCost;
     if ($maxCost < 0) {
         $maxCost = 0;
     }
@@ -108,8 +108,3 @@ $compare_hours = function ($x, $y) {
     $y_timestamp = strtotime($y);
     return $x_timestamp <=> $y_timestamp;
 };
-
-/*$mul = mt_rand(100, 100000);
-$x = mt_rand(0 * $mul, 5 * $mul) / $mul;
-$poo = number_format((float)$x, 2, ".", "");
-echo "Hey, here is your random number: " . $poo;*/
