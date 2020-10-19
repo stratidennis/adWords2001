@@ -1,5 +1,6 @@
 <?php
 require "functions.php";
+
 if (isset($_POST["startCampaign"])) {
     $info = $_POST["inputHistory"]; // Get the history that has been inputed by the user
     if (empty($info)) {
