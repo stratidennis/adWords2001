@@ -1,5 +1,15 @@
 <?php
 require "functions.php";
+if (isset($_POST["startCampaign"])) {
+    $info = $_POST["inputHistory"]; // Get the history that has been inputed by the user
+    if (empty($info)) {
+        header("Location: index.php?error=empty");
+        exit();
+    } elseif (preg_match("/[a-z]/i", $info)) {
+        header("Location: index.php?error=letters");
+        exit();
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -8,6 +18,7 @@ require "functions.php";
 <head>
     <meta charset='UTF-8'>
     <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <link rel='shortcut icon' type='image/x-icon' href='favicon.ico'>
     <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
     <link rel='stylesheet' href='styles.css'>
     <title>AdWords - Campaign</title>
@@ -25,14 +36,6 @@ require "functions.php";
         if (isset($_POST["startCampaign"])) {
 
             $format = "d.m.Y";
-            $info = $_POST["inputHistory"]; // Get the history that has been inputed by the user
-            if (empty($info)) {
-                header("Location: index.php?error=empty");
-                exit();
-            } elseif (preg_match("/[a-z]/i", $info)) {
-                header("Location: index.php?error=letters");
-                exit();
-            }
 
             $lines = explode(";", $info); // Separating each line
             $dates = array(); // Creating an array for the dates where the budget has been changed
@@ -42,7 +45,7 @@ require "functions.php";
             }
 
             // Getting the starting date for the campaign and determining the last date of the campaign
-            $x = explode("-", $dates[0]);
+            $x = explode("-", $lines[0]);
             $startDate = $x[0];
             $currentBudget = current_budget(end($x), 0); // Getting the first budget of the campaign
             unset($x);
