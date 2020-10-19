@@ -81,15 +81,15 @@ if (isset($_POST["startCampaign"])) {
                     if ($currentDateTimeStamp == strtotime($dates[0])) { // Checking wheter the current date is equal to one of the dates entered in the history log
                         $budgetChangeHours = create_hours_array($lines, $dates[0]); // Getting all the hours in the day when the budget is changed
                         $budgetChanges = create_budgets_array($lines, $dates[0]); // Getting all the budgets from the same day, in the same order
-                        if ($maxDailyBudget < intval(max($budgetChanges))) {
-                            $maxDailyBudget = intval(max($budgetChanges));
+                        if ($maxDailyBudget < floatval(max($budgetChanges))) {
+                            $maxDailyBudget = floatval(max($budgetChanges));
                         }
                         $maxBudgetsSum = $maxBudgetsSum + $maxDailyBudget;
                         $counter = count($budgetChangeHours);
                         for ($j = 0; $j < count($hours); $j++) {
                             // Case when the current budget changes
                             while ($counter != 0 && compare_times($hours[$j], $budgetChangeHours[0])) { // Comparing hours when creating a cost and hours when the budget is changed while there still are hours when the budget may have been changed
-                                $currentBudget = intval($budgetChanges[0]);
+                                $currentBudget = floatval($budgetChanges[0]);
                                 if ($currentBudget != 0) {
                                     $cost = create_cost($maxBudgetsSum, $totalMonthlyCost, $currentBudget, $totalDailyCost); // Creating cost
                                     $totalDailyCost = $totalDailyCost + $cost; // Adding cost to total daily costs
@@ -104,7 +104,7 @@ if (isset($_POST["startCampaign"])) {
                             }
                         }
                         if ($counter != 0) { // Checking if there are any times left when the budget has been changed 
-                            $currentBudget = intval(end($budgetChanges)); // If so, the current budget becomes the last changed budget of the day
+                            $currentBudget = floatval(end($budgetChanges)); // If so, the current budget becomes the last changed budget of the day
                         }
                         array_shift($dates);
                     } else {
