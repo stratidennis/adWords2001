@@ -54,7 +54,8 @@ function create_budgets_array($lines, $date, $sw = 1)
             $sw = 0;
             $y = explode(",", $x[1]);
             foreach ($y as $z) {
-                $budgets[] = $z[1];
+                $u = explode("(", $z);
+                $budgets[] = $u[0];
             }
         }
     }
