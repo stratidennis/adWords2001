@@ -9,3 +9,5 @@ the daily budget set by the end-user in the moment the cost generation is initia
 
 To start the campaign you must input the history of the budget changes in the campaign. 
 The first date that you will enter, will be the date when the campaign starts.
+
+This web app is hosted at: https://adwords2001.000webhostapp.com/ .
